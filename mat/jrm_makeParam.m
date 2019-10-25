@@ -17,6 +17,7 @@ param.nGates = nGates ;
 param.useGPU = 0 ;
 param.FWHM = 4 ; %mm
 param.FWHM_TOF = 75 ; %mm
+%param.FWHM_TOF = 40 ; %mm
 param.phi = 0:0.04:pi ;
 param.nPhi = length(param.phi) ;
 param.voxSize = 3.125 ; %mm
@@ -24,7 +25,7 @@ param.voxSize = 3.125 ; %mm
 %param.normSino = ones([param.dimIm(1),param.dimIm(3),param.nPhi]) ;
 
 
-param.wTOF = 5 ; % Time of flight bin width (in voxels)
+param.wTOF = 4 ; % Time of flight bin width (in voxels)
 param.nt =   floor(N/param.wTOF) + 1 ;
 
 if param.isTOF

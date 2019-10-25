@@ -14,7 +14,7 @@ nGates = param.nGates ;
 Nspl = param.Nspl  ;
 Wspl = param.Wspl ;
 
-NZ = size(f,3) ;
+%NZ = size(f,3) ;
 
 if param.reinit == 1 
     f = ones(size(f)) ;
@@ -90,12 +90,12 @@ for n = 1 : param.nIterTotal
        
        figure(2)
        im1 = subplot(nGates,2,(t-1)*2 + 1) ;
-       imagesc(Wf(:,:,round(NZ/2))) ; axis(im1,'image') ; colormap(im1,'hot') ; set(gca,'XTick',[],'YTick',[]) ;
+       imagesc(   squeeze(    Wf(:,round(size(f,2)/2),:))'  ) ; axis(im1,'image') ; colormap(im1,'hot') ; set(gca,'XTick',[],'YTick',[]) ;
        title(['Wf, gate ',num2str(t)])
        
        
        im2 = subplot(nGates,2,(t-1)*2 + 2) ; 
-       imagesc(Wmu(:,:,round(NZ/2))) ; axis(im2,'image') ; colormap(im2,1-gray) ; set(gca,'XTick',[],'YTick',[]) ;
+       imagesc(   squeeze(    Wmu(:,round(size(f,2)/2),:))'    ) ; axis(im2,'image') ; colormap(im2,1-gray) ; set(gca,'XTick',[],'YTick',[]) ;
        title(['Wmu, gate ',num2str(t)])
        
        pause(0.1)

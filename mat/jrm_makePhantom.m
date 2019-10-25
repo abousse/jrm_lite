@@ -4,18 +4,18 @@
 % For research purpose only.
 
 
-function [act_t,mu_t,mutilde] = jrm_makePhantom(param)
+function [act_t,mu_t] = jrm_makePhantom(param)
 
 dimIm = param.dimIm ;
 N = dimIm(1) ; NZ = dimIm(3) ;
 
 c1 = [round(N/2),round(N/2),round(NZ/2)] ;
-%c2 = [round(N/2)+round(NZ/5),round(N/2),round(NZ/2)] ;
+c2 = [round(N/2)+round(NZ/5),round(N/2),round(NZ/2)] ;
 
 mu_water = 0.01 ; %mm^-1
 
 f = makeSphere(c1,NZ/3,N,NZ) ;
-%f = f + 4*makeSphere(c2,NZ/12,N,NZ) ;
+f = f + 4*makeSphere(c2,NZ/12,N,NZ) ;
 mu = makeSphere(c1,NZ/3,N,NZ)*mu_water*param.voxSize ; 
 
 act_t = zeros(N,N,NZ) ;
@@ -32,8 +32,7 @@ for l = 1 : param.nGates
     
 end
 
-shift_vect = [0,1,0]* round(  (N/16)/param.nGates) ;
-mutilde = circshift(mu,shift_vect) ;
+
 
 end
 

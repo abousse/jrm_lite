@@ -83,12 +83,13 @@ for k = 1 : nEM
     
     if param.dispEM
         figure(1)
-        imagesc(f(:,:,round(size(f,3)/2)  )) ;  axis image ; colormap hot ; set(gca,'XTick',[],'YTick',[]) ;
+        imagesc(squeeze(    f(:,round(size(f,2)/2),:))'  ) ;  axis image ; colormap hot ; set(gca,'XTick',[],'YTick',[]) ;
+        title('initial reconstruction of f')
         pause(0.1)
     end
     
     
 end
 
-close
+
 
