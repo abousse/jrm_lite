@@ -39,6 +39,8 @@ opts.m = 9 ;
 % opts.factr = 0 ;
 %opts.factr = 1e7 ; % precision tolerence (default: 1e7 ). This is later multiplied by machine epsilon
 opts.factr = 1e7 ;
+% the LBFGS toolbox MEX Wrapper should be installed and added to the path. It is available on Mathwork
+% https://www.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper.
 [alphaVect,~,~] = lbfgsb(fopti1var, lb, ub, opts) ; % OPTIMISATION
 
 

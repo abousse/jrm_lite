@@ -18,8 +18,8 @@ to test activity/attenuation realignment in TOF-PET/CT. It is similar to the exp
 in [2].
 
 The XCAT phantom was replaced with a basic spherical phantom due to copyrights.
-There are 2 software that should be downloaded: 
-(i) the convnsep function for separable convolution, available on Mathwork at:
+There are 2 softwares that should be downloaded: 
+(i) the convnsep function for separable kernel convolution, available on Mathwork at:
 https://www.mathworks.com/matlabcentral/fileexchange/27957-separable-n-dimensional-convolution 
 (ii) the LBFGS toolbox MEX Wrapper, also available on Mathwork
 https://www.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper.
