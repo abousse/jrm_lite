@@ -8,7 +8,7 @@ For research purpose only.
 This is JRM_lite, a light version of Joint Reconstruction/Motion (JRM) toolbox developed for [1], [2] 
 and to some extend [3]. This code can be used for basic simulations.
 
-There is no useguide for now so users should utilise the 2 example scripts and dig in the source code.
+There is no userguide for now so users should utilise the 2 example scripts and dig in the source code.
 
 scriptTest.m is a basic example of motion estimation/compensation from gated PET/CT, where
 the phantom is translated across the 3 gates, and corresponds to [1].
