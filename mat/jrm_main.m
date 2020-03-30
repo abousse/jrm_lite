@@ -19,7 +19,7 @@ Wspl = param.Wspl ;
 if param.reinit == 1 
     f = ones(size(f)) ;
     disp('initialisation...')
-    f = jrm_penMLEM(f,sino_t,mu,param.gateNumber4init,param,param.nEM) ;
+    f = jrm_penMLEM(f,sino_t,mu,param,param.gateNumber4init) ; 
 end
 
 
@@ -30,13 +30,10 @@ for n = 1 : param.nIterTotal
     % maximisation w.r.t. alpha
     % =======================================================================
     
-    disp(['iteration ',num2str(n),'/',num2str(param.nIterTotal)])
+    disp(['OUTER ITERATION ',num2str(n),'/',num2str(param.nIterTotal)])
     tic
     
     disp('motion estimation...')
-    
-    
-    nIterMotion = param.nIterMotion ;
     
     for t = 1 : param.nGates
         
@@ -49,7 +46,7 @@ for n = 1 : param.nIterTotal
             alpha.Z(:,:,:,t) = alpha.Z(:,:,:,t-1) ;
         end
         
-        alpha = jrm_JRMmotionUpdateOneGate(alpha,f,mu,sino_t,param,t,nIterMotion) ;
+        alpha = jrm_JRMmotionUpdateOneGate(alpha,f,mu,sino_t,param,t) ;
         
     end
     
@@ -63,9 +60,6 @@ for n = 1 : param.nIterTotal
     alphaZ_t = alpha.Z ;
     
     
-    
-    
-    
     % test if f should be reinitialised
     if (mod(n,param.reinitEveryNiter) == 0 ||  (mod(n,param.nIterTotal) == 0  && param.reinitFinalIter == 1) || n==1)
         
@@ -76,7 +70,8 @@ for n = 1 : param.nIterTotal
    
     
     
-    f = jrm_dynPenMLEM(f,sino_t,mu,param,alpha,param.nEM) ;
+    %f = jrm_dynPenMLEM(f,sino_t,mu,param,alpha,param.nEM) ;
+    f = jrm_dynPenMLEM(f,sino_t,mu,alpha,param) ;
     
    % warp the new f
    
@@ -88,7 +83,7 @@ for n = 1 : param.nIterTotal
        Wf = jrm_fwarp3D_mex(f,Xnew,Ynew,Znew) ;
        Wmu = jrm_fwarp3D_mex(mu,Xnew,Ynew,Znew) ;
        
-       figure(2)
+       figure(1)
        im1 = subplot(nGates,2,(t-1)*2 + 1) ;
        imagesc(   squeeze(    Wf(:,round(size(f,2)/2),:))'  ) ; axis(im1,'image') ; colormap(im1,'hot') ; set(gca,'XTick',[],'YTick',[]) ;
        title(['Wf, gate ',num2str(t)])
@@ -101,6 +96,11 @@ for n = 1 : param.nIterTotal
        pause(0.1)
        
    end
+   
+   figure(2)
+   imagesc(squeeze( f(:,round(size(f,2)/2),:))'  ) ;  axis image ; colormap hot ; set(gca,'XTick',[],'YTick',[]) ;
+   title('motion compensated reconstruction of f')
+   pause(0.1)
    
    
    

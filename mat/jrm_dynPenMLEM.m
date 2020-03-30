@@ -4,7 +4,7 @@
 % For research purpose only.
 
 
-function f = jrm_dynPenMLEM(f,sino_t,mu,param,alpha,nEM)
+function f = jrm_dynPenMLEM(f,sino_t,mu,alpha,param)
 
 
 dimSino_t = size(sino_t) ;
@@ -45,9 +45,9 @@ if param.isTOF
  end
 
     
-for k = 1 : nEM
+for k = 1 : param.nEM
      
-     disp(['Modified Motion compensated EM, iter ',num2str(k),'/',num2str(nEM)]) ;
+     disp(['Modified Motion compensated EM, iter ',num2str(k),'/',num2str(param.nEM)]) ;
      
     % expected projection
      A = jrm_dynForwardProj(f,param,alpha) ;
@@ -73,15 +73,14 @@ for k = 1 : nEM
          
           [~,~,f_reg,omega_sum] = jrm_quadPrior(f) ;
          f = jrm_mergeEMandPrior(f_em,f_reg,4*sum(param.gateDuration(:))*omega_sum*param.betaQuadImage,norm_t_EM) ;
-         % Here we proceeded as in Wang and Qi, IEEE TMI 2012
-         % beta should be multiplied by 4 because the surrogate is
-         % 2*beta*(f - f_reg)^2 and jrm_mergeEMandPrior uses 0.5*beta*(f - f_reg)^2
-         % we also multiplied by sum(param.fracGates(:)) to smooth
-         % proportionally to the total acquisition time
+         % Here we proceeded as in Wang and Qi, IEEE TMI 2012.
+         % beta should be multiplied by 4 because the surrogate is 2*beta*(f - f_reg)^2 and jrm_mergeEMandPrior uses 0.5*beta*(f - f_reg)^2
+         % we also multiplied by sum(param.fracGates(:)) to smooth proportionally to the total acquisition time
      else
          f = f_em ;
      end
      
+
      
      
      

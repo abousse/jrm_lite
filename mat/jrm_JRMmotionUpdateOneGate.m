@@ -4,10 +4,10 @@
 % For research purpose only.
 
 
-function alpha = jrm_JRMmotionUpdateOneGate(alpha,vol,mu,sino_t,param,gateNumber,nIter)
+function alpha = jrm_JRMmotionUpdateOneGate(alpha,vol,mu,sino_t,param,gateNumber)
 
 Nspl = param.Nspl  ;
-
+nIter = param.nIterMotion ;
 
 alphaX = jrm_pickTimeFrame(alpha.X,param.nGates,gateNumber) ;   %
 alphaY = jrm_pickTimeFrame(alpha.Y,param.nGates,gateNumber) ;
@@ -27,28 +27,31 @@ ub =  60*ones(nSpline_all*3,1) ;
 
 fopti1var = @(alphaVect)jrm_JRMmotionCostOneGate(alphaVect,vol,mu,sino_t,param,gateNumber) ;
 
-% --------------------
-% options for lbfgsb
-% --------------------
-opts.x0 = alphaVect ;
-opts.maxIts = nIter ;
+% ------------------------------------------------------------------------------------------------------------------------
+% OPTIMISATION OF THE OBJECTIVE FUNCTION WITH RESPECT TO THE MOTION PARAMETER ALPHA:
 
-opts.printEvery = 1 ;
-opts.verbose = 1;
-opts.m = 9 ;
-% opts.factr = 0 ;
-%opts.factr = 1e7 ; % precision tolerence (default: 1e7 ). This is later multiplied by machine epsilon
-opts.factr = 1e7 ;
-% the LBFGS toolbox MEX Wrapper should be installed and added to the path. It is available on Mathwork
-% https://www.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper.
-[alphaVect,~,~] = lbfgsb(fopti1var, lb, ub, opts) ; % OPTIMISATION
+% Using 'fmincon' from the Optimization Toolbox
+opt_fmincon = optimoptions(@fmincon,'Display','iter-detailed','algorithm','interior-point',...
+    'GradObj','on','Hessian','lbfgs','MaxIter',nIter,'DerivativeCheck','off') ;
+alphaVect = fmincon(fopti1var,alphaVect,[],[],[],[],lb,ub,[],opt_fmincon) ; % OPTIMISATION
 
 
+% Alternativelly the LBFGS Toolbox by Stephen Becker can be used.
+% The LBFGS toolbox MEX Wrapper should be installed and added to the path. It is available on Mathwork
+% https://www.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper
+% Also available on Github
+% https://fr.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper
+%
+% opts.x0 = alphaVect ;
+% opts.maxIts = nIter ;
+% opts.printEvery = 1 ;
+% opts.verbose = 1;
+% opts.m = 9 ;
+% opts.factr = 1e7 ;
+% [alphaVect,~,~] = lbfgsb(fopti1var, lb, ub, opts) ; % OPTIMISATION
 
-% alternativelly fmincon can be used: 
-% opt_fmincon = optimoptions(@fmincon,'Display','iter-detailed','algorithm','interior-point',...
-%     'GradObj','on','Hessian','lbfgs','MaxIter',nIter,'DerivativeCheck','off') ;
-% alphaVect = fmincon(fopti1var,alphaVect,[],[],[],[],lb,ub,[],opt_fmincon) ; % OPTIMISATION
+% ------------------------------------------------------------------------------------------------------------------------
+
 
 
 alphaX = reshape( alphaVect(  1                   :     nSpline_all   ),  NYspl,NXspl,NZspl  ) ;

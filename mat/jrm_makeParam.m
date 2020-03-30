@@ -64,7 +64,7 @@ param.Wspl = Wspl ;
 %% Reconstruction parameters
 
 % motion quadratic spatial prior weigth
-betaQuadMotion = 0.01 ;
+betaQuadMotion = 0.5 ;
 param.betaQuadMotion.X = betaQuadMotion ; 
 param.betaQuadMotion.Y = betaQuadMotion ; 
 param.betaQuadMotion.Z = betaQuadMotion ;
@@ -72,16 +72,16 @@ param.betaQuadMotion.Z = betaQuadMotion ;
 % image quadratic spatial prior weigth
 param.betaQuadImage = 0.00001 ;
 
+param.nIterTotal = 3 ; % number of outer-iterations
+param.nIterMotion = 50 ; % number of motion estimation inner-iterations
+param.nEM = 40 ; % number of motion-compensated inner-iterations (modified MLEM)
 
-param.nIterMotion = 50 ; % sino-based registration inner loop
+param.reinitEveryNiter = 3 ;
 
-param.nEM = 40 ; 
-param.nIterTotal = 10 ; % total iter
-param.reinitEveryNiter = 5 ;
-
-param.reinit = 0 ;
-param.reinitFinalIter = 1 ;
+param.reinit = 1 ; % initialise with a reconstruction at the gate number 'param.gateNumber4init' (default is 1)
 param.gateNumber4init = 1 ;
+param.reinitFinalIter = 1 ; % at the final outer-ieration: reconstruct the image from all gates and the estimated motion (modified MLEM) reinitialised from a blank image
+
 
 
 

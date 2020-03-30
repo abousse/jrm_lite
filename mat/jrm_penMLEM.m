@@ -4,7 +4,7 @@
 % For research purpose only.
 
 
-function f = jrm_penMLEM(f,sino_t,mu,gateNumber,param,nEM)
+function f = jrm_penMLEM(f,sino_t,mu,param,gateNumber)
 
 sino = jrm_pickTimeFrame(sino_t,param.nGates,gateNumber) ;
 dimSino = size(sino) ;
@@ -36,10 +36,10 @@ else
     norm_EM = jrm_backProj(param.gateDuration(gateNumber)*attnC,param) ;
 end
 
-for k = 1 : nEM
+for k = 1 : param.nEM
     
     
-    disp(['Modified EM, iter ',num2str(k),'/',num2str(nEM)] ) ;
+    disp(['Modified EM, iter ',num2str(k),'/',num2str(param.nEM)] ) ;
     
     % expected projection
     A = jrm_forwardProj(f,param) ;
@@ -81,12 +81,7 @@ for k = 1 : nEM
     end
     
     
-    if param.dispEM
-        figure(1)
-        imagesc(squeeze(    f(:,round(size(f,2)/2),:))'  ) ;  axis image ; colormap hot ; set(gca,'XTick',[],'YTick',[]) ;
-        title('initial reconstruction of f')
-        pause(0.1)
-    end
+
     
     
 end
