@@ -10,8 +10,8 @@ close all
 addpath('./mex')
 addpath('./mat')
 
-if exist('convnsep','file') ==0
-    error('The convnsep.m function by Igor Solovey for separable kernel convolution, available on Mathwork at: https://www.mathworks.com/matlabcentral/fileexchange/27957-separable-n-dimensional-convolution, must be in the path')
+if exist('convnsep','file') == 0
+    error('The convnsep.m function for separable kernel convolution must be in the path. It is available on Mathwork at: https://www.mathworks.com/matlabcentral/fileexchange/27957-separable-n-dimensional-convolution, must be in the path')
 end    
 
 
