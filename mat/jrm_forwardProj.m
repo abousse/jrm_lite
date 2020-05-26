@@ -20,8 +20,12 @@ sigma_time_mm = paramProj.FWHM_TOF/2.3555 ;
 sigma_vox = sigma_mm/paramProj.voxSize ;
 sigma_time_vox = sigma_time_mm/paramProj.voxSize ;
 phi = 180*paramProj.phi/pi ;
+nPhi = length(phi) ;
 
-nPhi = length(phi) ; % now nPhi is the size of the subset....
+[I,J] = ndgrid(1:N,1:N);
+ic = floor((N+1)/2)  ;
+jc = ic ;
+D = double((I-ic).^2+(J-jc).^2<=round(N/2)^2);
 
 nPSF = round(N/5) ;
 nPSF_time = N ;
@@ -57,7 +61,7 @@ if (paramProj.useGPU == 1)
 end
 
 im = convnsep(H,im,'same') ;
-
+im = im.*D ;
 
 for i = 1 : nPhi
     
