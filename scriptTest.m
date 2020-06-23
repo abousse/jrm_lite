@@ -14,7 +14,7 @@ addpath('./mat')
 N = 128 ;  NZ = 60 ; nGates = 3 ;  isTOF = 0 ;
 
 param = jrm_makeParam(N,NZ,nGates,isTOF) ;
-param.useGPU = 1 ; % switch to 0 if no GPU
+param.useGPU = 0 ; % switch to 1 if you want to use GPU
 param.nEM = 40 ;
 param.nIterMotion = 20 ;
 param.nIterTotal = 3 ;
