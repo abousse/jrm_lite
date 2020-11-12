@@ -31,7 +31,7 @@ fopti1var = @(alphaVect)jrm_JRMmotionCostOneGate(alphaVect,vol,mu,sino_t,param,g
 % OPTIMISATION OF THE OBJECTIVE FUNCTION WITH RESPECT TO THE MOTION PARAMETER ALPHA:
 
 % Using 'fmincon' from the Optimization Toolbox
-opt_fmincon = optimoptions(@fmincon,'Display','iter-detailed','algorithm','interior-point',...
+opt_fmincon = optimoptions('fmincon','Display','iter-detailed','algorithm','interior-point',...
     'GradObj','on','Hessian','lbfgs','MaxIter',nIter,'DerivativeCheck','off') ;
 alphaVect = fmincon(fopti1var,alphaVect,[],[],[],[],lb,ub,[],opt_fmincon) ; % OPTIMISATION
 
