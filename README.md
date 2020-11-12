@@ -5,16 +5,6 @@ Bousse, Institute of Nuclear Medicine, UCL
 Email: alexandre@bousse.fr 
 For research purpose only.
 
-###################################################################################################################
-UPDATE 30/03/2020
-I cleaned up the code a bit (some parameters were moved to 'param'). 
-I removed the second the secont test script (TOF PET/CT realignment) as it was really too simplistic. 
-I added a non-motion compensated reconstruction for comparison. 
-I removed the 'convnsep.m' file as I am not the author (download below)
-I change the LBFGS function; default function is now 'fmincon'
-Finally, I updated this readme file accordingly 
-###################################################################################################################
-
 This is JRM_lite, a light version of Joint Reconstruction/Motion (JRM) toolbox developed for [1], [2] 
 and to some extend [3]. This code can be used for basic simulations.
 
@@ -26,7 +16,7 @@ FUNCTIONS THAT ARE NOT INCLUDED IN THIS PACKAGE:
 (i) REQUIRED: the 'convnsep.m' function by Igor Solovey for separable kernel convolution, available on Mathwork at: https://www.mathworks.com/matlabcentral/fileexchange/27957-separable-n-dimensional-convolution, must be in the path. 
 (ii) OPTIONAL: the LBFGS toolbox MEX Wrapper by Stephen Becker, available on Mathwork: https://www.mathworks.com/matlabcentral/fileexchange/35104-lbfgsb-l-bfgs-b-mex-wrapper;  also available on Github: https://github.com/stephenbeckr/L-BFGS-B-C. The L-BFGS-B algorithm was written by Ciyou Zhu, R. H. Byrd, P. Lu and J. Nocedal [4]; please cite their work if you use it. The LBFGS function is used in 'jrm_JRMmotionUpdateOneGate.m' for motion estimation, but can also be replaced by 'fmincon' (MATLAB Optimization Toolbox). 
 
-Please do not forget to compile the MEX files with the compile.m script in the ./mex folder.
+The MEX can be compiled with the compile.m script in the ./mex folder.
 
 This code can be used by anyone for research purpose, provided the work from [1,2] is acknowledged.
 
