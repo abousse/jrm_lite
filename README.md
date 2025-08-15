@@ -1,8 +1,4 @@
-- JRM_Lite 
-- Copyright University College London 2015, 2016, 2017, 2018, 2019 
-- Author: Alexandre
-- Bousse, Institute of Nuclear Medicine, UCL 
-- Email: alexandre@bousse.fr 
+- JRM_Lite, Copyright University College London 2015, 2016, 2017, 2018, 2019 
 - For research purpose only.
 
 
