@@ -1,9 +1,10 @@
-JRM_Lite 
-Copyright University College London 2015, 2016, 2017, 2018, 2019 
-Author: Alexandre
-Bousse, Institute of Nuclear Medicine, UCL 
-Email: alexandre@bousse.fr 
-For research purpose only.
+- JRM_Lite 
+- Copyright University College London 2015, 2016, 2017, 2018, 2019 
+- Author: Alexandre
+- Bousse, Institute of Nuclear Medicine, UCL 
+- Email: alexandre@bousse.fr 
+- For research purpose only.
+
 
 This is JRM_lite, a light version of Joint Reconstruction/Motion (JRM) toolbox developed for [1], [2] 
 and to some extend [3]. This code can be used for basic simulations.
